@@ -1,0 +1,43 @@
+{
+    "crr": {
+        "road": {
+            "road": 0.004,
+            "sand": 0.004,
+            "brick": 0.0055,
+            "wood": 0.0065,
+            "cobbles": 0.0065,
+            "snow": 0.0075,
+            "dirt": 0.025
+        },
+        "mtb": {
+            "road": 0.01,
+            "sand": 0.01,
+            "brick": 0.01,
+            "wood": 0.01,
+            "cobbles": 0.01,
+            "snow": 0.014,
+            "dirt": 0.014,
+            "grass": 0.042
+        },
+        "gravel": {
+            "road": 0.008,
+            "sand": 0.008,
+            "brick": 0.008,
+            "wood": 0.008,
+            "cobbles": 0.008,
+            "snow": 0.008,
+            "dirt": 0.016
+        }
+    },
+    "worlds": {
+        "watopia": "road,brick,wood,cobbles,dirt,grass",
+        "makuri": "road,sand,brick,wood,cobbles,dirt",
+        "richmond": "road,cobbles,bricks",
+        "london": "road",
+        "france": "road",
+        "scotland": "road",
+        "yorkshire": "road",
+        "new_york": "road,bricks",
+        "innsbruck": "road"
+    }
+}

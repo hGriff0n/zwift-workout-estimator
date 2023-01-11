@@ -1,0 +1,442 @@
+{
+    "watopia": {
+        "beach_island_loop": {
+            "id": 26741693
+        },
+        "big_foot_hills": {
+            "id": 21911191
+        },
+        "big_loop": {
+            "id": 16402683
+        },
+        "bigger_loop": {
+            "id": 20425565
+        },
+        "climbers_gambit": {
+            "id": 29622065,
+            "custom_lap": [
+                31849943,
+                28778314,
+                27250592
+            ]
+        },
+        "dust_in_the_wind": {
+            "id": 22458637
+        },
+        "figure_8_reverse": {
+            "id": 27177732
+        },
+        "figure_8": {
+            "id": 12118421
+        },
+        "flat_route": {
+            "id": 27130302
+        },
+        "four_horseman": {
+            "id": 28020745
+        },
+        "hilly_rotue": {
+            "id": 12118362
+        },
+        "jungle_circuit": {
+            "id": 16359363,
+            "lead_in": 22391557,
+            "surface": "dirt"
+        },
+        "legends_and_lava": {
+            "id": 30630421,
+            "custom_lap": [
+                19970445,
+                14032406,
+                14270131
+            ]
+        },
+        "mountain_8": {
+            "id": 12118544
+        },
+        "mountain_route": {
+            "id": 12483517
+        },
+        "muir_and_mountain": {
+            "id": 22368918
+        },
+        "ocean_lava_cliffside_loop": {
+            "id": 26741663
+        },
+        "out_and_back_again": {
+            "id": 20350104
+        },
+        "quatch_quest": {
+            "id": 21344377,
+            "custom_lap": [
+                17267489,
+                17352925
+            ]
+        },
+        "road_to_ruins": {
+            "id": 16404154,
+            "surface": "dirt"
+        },
+        "road_to_sky": {
+            "id": 22280036,
+            "custom_lap": [
+                17267489,
+                17352925
+            ]
+        },
+        "sand_and_sequoias": {
+            "id": 21911197
+        },
+        "serpentine_8": {
+            "id": 26742092,
+            "lead_in": 26742088,
+            "surface": "dirt"
+        },
+        "tempus_fugit": {
+            "id": 20350088,
+            "lead_in": "???"
+        },
+        "mega_pretzel": {
+            "id": 16939150
+        },
+        "pretzel": {
+            "id": 12118762
+        },
+        "uber_pretzel": {
+            "id": 27313482,
+            "custom_lap": [
+                17267489,
+                17352925
+            ]
+        },
+        "three_sisters": {
+            "id": 15159137
+        },
+        "tick_tock": {
+            "id": 20350376,
+            "lead_in": "???"
+        },
+        "tour_of_fire_and_ice": {
+            "id": 17265057,
+            "custom_lap": [
+                17267489,
+                17352925
+            ]
+        },
+        "two_bridges_loop": {
+            "id": 26741685
+        },
+        "volcano_circuit_ccw": {
+            "id": 14032426,
+            "lead_in": 19696151
+        },
+        "volcano_circuit": {
+            "id": 14032406,
+            "lead_in": 19696157
+        },
+        "volcano_climb": {
+            "id": 16425130
+        },
+        "volcano_flat": {
+            "id": 14032442
+        },
+        "watopias_waistband": {
+            "id": 20469780
+        },
+        "whole_lotta_lava": {
+            "id": 20545879
+        },
+        "downtown_titans": {
+            "id": 23167123
+        },
+        "eastern_eight": {
+            "id": 22914116
+        },
+        "three_little_sisters": {
+            "id": 22943213
+        },
+        "triple_flat_loops": {
+            "id": 20453276
+        }
+    },
+    "makuri": {
+        "bridges_and_boardwalks": {
+            "id": 33221600,
+            "lead_in": 33262797
+        },
+        "castle_to_castle": {
+            "id": 30629803
+        },
+        "chain_chomper": {
+            "id": 28430973
+        },
+        "chasing_the_sun": {
+            "id": 30988311
+        },
+        "country_to_coastal": {
+            "id": 33238095
+        },
+        "countryside_tour": {
+            "id": 28431416
+        },
+        "electric_loop": {
+            "id": 30987848
+        },
+        "farmland_loop": {
+            "id": 29534888
+        },
+        "fine_and_sandy": {
+            "id": 33237114
+        },
+        "flatland_loop": {
+            "id": 29129813
+        },
+        "island_hopper": {
+            "id": 33236919
+        },
+        "island_outskirts": {
+            "id": 33237309
+        },
+        "kappa_quest_reverse": {
+            "id": 29009500,
+            "lead_in": 29559312,
+            "surface": "dirt"
+        },
+        "kappa_quest": {
+            "id": 28432243,
+            "lead_in": 28432204,
+            "surface": "dirt"
+        },
+        "makuri_40": {
+            "id": 33237747
+        },
+        "mech_isle_loop": {
+            "id": 33214506
+        },
+        "neokyo_all_nighter": {
+            "id": 30407658
+        },
+        "neon_flats": {
+            "id": 30414842
+        },
+        "railways_and_rooftops": {
+            "id": 30407802,
+            "lead_in": "???"
+        },
+        "rooftop_rendevous": {
+            "id": 30407898,
+            "lead_in": "???"
+        },
+        "sea_to_tree": {
+            "id": 28432204,
+            "custom_lap": [ 28432243 ]
+        },
+        "sleepless_city": {
+            "id": 30407957
+        },
+        "spirit_forest": {
+            "id": 28432455,
+            "lead_in": "???"
+        },
+        "sprinters_playground": {
+            "id": 30412485
+        },
+        "sukis_playground": {
+            "id": 29009511
+        },
+        "temples_and_towers": {
+            "id": 30408107
+        },
+        "three_village_loop": {
+            "id": 28433076
+        },
+        "turf_n_surf": {
+            "id": 33238344
+        },
+        "twilight_harbor": {
+            "id": 30629791
+        },
+        "two_village_loop": {
+            "id": 28433439
+        },
+        "valley_to_mountaintop": {
+            "id": 29559312,
+            "custom_lap": [ 29009500 ]
+        },
+        "wandering_flats": {
+            "id": 30408380
+        }
+    },
+    "richmond": {
+        "worlds": {
+            "id": 12128718
+        },
+        "cobbled_climbs": {
+            "id": 11308213
+        },
+        "worlds_reverse": {
+            "id": 22809649,
+            "first_lap": 33465477
+        },
+        "fan_flats": {
+            "id": 19852166,
+            "first_lap": 19852135
+        }
+    },
+    "london": {
+        "classique": {
+            "id": 12749761,
+            "first_lap": 12787386
+        },
+        "greater_london_8": {
+            "id": 15158866
+        },
+        "greater_london_flat": {
+            "id": 15389301,
+            "first_lap": 15389276
+        },
+        "greater_london_loop": {
+            "id": 15158576
+        },
+        "greatest_london_float": {
+            "id": 16982511,
+            "lead_in": 25013774
+        },
+        "greatest_london_loop": {
+            "id": 16781177
+        },
+        "london_8": {
+            "id": 12747814
+        },
+        "london_loop": {
+            "id": 12749649
+        },
+        "surrey_hills": {
+            "id": 24008116,
+            "first_lap": 20785354
+        },
+        "london_pretzel": {
+            "id": 15155838
+        },
+        "prl_full": {
+            "id": 12759760
+        },
+        "prl_half": {
+            "id": 12759713
+        },
+        "triple_loops": {
+            "id": 16781219
+        }
+    },
+    "france": {
+        "casse_pattes": {
+            "id": 24674909,
+            "lead_in": 24700908
+        },
+        "douce_france": {
+            "id": 24676077,
+            "first_lap": 24676071
+        },
+        "la_reine": {
+            "id": 33465483,
+            "custom_lap": []
+        },
+        "petit_boucle": {
+            "id": 24676054
+        },
+        "rgv": {
+            "id": 24685955,
+            "lead_in": 24700908
+        },
+        "roule_ma_poule": {
+            "id": 24690956,
+            "lead_in": 24690923
+        },
+        "tire_bouchon": {
+            "id": 24690941,
+            "lead_in": 24690923
+        },
+        "ventop": {
+            "id": 24682608,
+            "custom_lap": []
+        }
+    },
+    "scotland": {},
+    "yorkshire": {
+        "worlds": {
+            "id": 21738724
+        },
+        "duchy_estate": {
+            "id": 21748097,
+            "lead_in": 22279853
+        },
+        "queens_highway": {
+            "id": 21748253,
+            "first_lap": 21748231
+        },
+        "royal_pump_room_8": {
+            "id": 21757792
+        },
+        "tour_of_tewit_well": {
+            "id": 21758283
+        }
+    },
+    "new_york": {
+        "astoria_line_8": {
+            "id": 19141340
+        },
+        "everything_bagel": {
+            "id": 19141223
+        },
+        "gotham_grind": {
+            "id": 19820820
+        },
+        "grand_central_circuit": {
+            "id": 19141192
+        },
+        "knickerbocker": {
+            "id": 19141299
+        },
+        "knickerbocker_reverse": {
+            "id": 20721179
+        },
+        "lady_liberty": {
+            "id": 19141269
+        },
+        "mighty_metropolitan": {
+            "id": 19141368
+        },
+        "park_perimeter_loop": {
+            "id": 19170651
+        },
+        "rising_empire": {
+            "id": 19171748
+        },
+        "6_train": {
+            "id": 19172136
+        },
+        "highline": {
+            "id": 19173163,
+            "lead_in": 0
+        }
+    },
+    "innsbruck": {
+        "worlds": {
+            "id": 18397725
+        },
+        "achterbahn": {
+            "id": 18398698
+        },
+        "innsbruckring": {
+            "id": 18398895
+        },
+        "lutscher": {
+            "id": 18407469,
+            "first_lap": 18407469
+        },
+        "lutscher_ccw": {
+            "id": 18406508,
+            "first_lap": 18407469
+        }
+    }
+}
