@@ -43,8 +43,14 @@ class Wheels(CyclingObject):
         super().__init__(mass, cd)
         self._crr_map = CRR_MAP[_type]
 
-    def crr(self, road_surface):
-        return self._crr_map[road_surface]
+    def crr(self, surfaces: dict):
+        crr = 0
+        rem = 1
+        for surface, pct in surfaces.items():
+            if pct != 0:
+                crr += self._crr_map[surface] * pct
+                rem -= pct
+        return crr + self._crr_map['road'] * rem
 
 
 # Physics modelling class for zwift rider. Provides two
@@ -60,8 +66,8 @@ class Rider(object):
         self._ftp = ftp
         self._v = 0
 
-    def _rolling_friction(self, gradient: float, surface: str):
-        return GRAVITY * math.cos(math.atan(gradient)) * self.mass * self._wheels.crr(surface)
+    def _rolling_friction(self, gradient: float, surfaces: dict):
+        return GRAVITY * math.cos(math.atan(gradient)) * self.mass * self._wheels.crr(surfaces)
 
     def _gravity_friction(self, gradient):
         return GRAVITY * math.sin(math.atan(gradient)) * self.mass
@@ -69,24 +75,24 @@ class Rider(object):
     def _drag_friction(self):
         return self.cd * self.frontal_area * (self._v * self._v) * AIR_DENSITY / 2
 
-    def sustaining_power(self, gradient: float, surface: str):
-        fr = self._rolling_friction(gradient, surface)
+    def sustaining_power(self, gradient: float, surfaces: dict):
+        fr = self._rolling_friction(gradient, surfaces)
         fg = self._gravity_friction(gradient)
         fd = self._drag_friction()
         return (fr + fg + fd) * self._v
 
     # https://physics.stackexchange.com/questions/226854/how-can-i-model-the-acceleration-velocity-of-a-bicycle-knowing-only-the-power-ou
-    def apply_watts(self, watts: int, gradient: float, dt: float, surface: str):
+    def apply_watts(self, watts: int, gradient: float, dt: float, surfaces: dict):
         v = self._v
-        power_needed = self.sustaining_power(gradient, surface)
+        power_needed = self.sustaining_power(gradient, surfaces)
         v = v*v + 2 * (watts - power_needed) * dt / self.mass
         return math.sqrt(v)
 
     # TODO(me): Deprecated
     # https://physics.stackexchange.com/questions/226854/how-can-i-model-the-acceleration-velocity-of-a-bicycle-knowing-only-the-power-ou
-    def next_velocity(self, pedal_power: float, velocity: float, gradient: float, dt: float, surface: str):
+    def next_velocity(self, pedal_power: float, velocity: float, gradient: float, dt: float, surfaces: dict):
         self._v = velocity
-        return self.apply_watts(pedal_power, gradient, dt, surface)
+        return self.apply_watts(pedal_power, gradient, dt, surfaces)
 
     def start_ride(self):
         self._v = 0

@@ -95,7 +95,7 @@ class Route(object):
 
     def __init__(self, name, segments, zwift_loader):
         self._name = name
-        self._surface = segments.get('surface', 'road')
+        self._surfaces = segments.get('surfaces', {})
         self._load_lap(segments['id'], zwift_loader)
         self._load_leadin(segments, zwift_loader)
 
@@ -108,8 +108,8 @@ class Route(object):
         return self._name
 
     @property
-    def surface(self):
-        return self._surface
+    def surfaces(self):
+        return self._surfaces
 
     def __iter__(self):
         return RouteIterator(copy.copy(self._leadin), copy.copy(self._lap))

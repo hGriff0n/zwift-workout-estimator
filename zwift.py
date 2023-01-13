@@ -146,7 +146,7 @@ class ZwiftRide(object):
 
     def _apply_expected_power(self, interval, segment):
         watts = interval.target(self._controller._rider.ftp)
-        return self._controller._rider.next_velocity(watts, self._velocity, segment.gradient, self.DT, self._controller._route.surface)
+        return self._controller._rider.next_velocity(watts, self._velocity, segment.gradient, self.DT, self._controller._route.surfaces)
 
     def __next__(self):
         rte_length = self._controller._route.length
