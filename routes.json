@@ -1,442 +1,827 @@
 {
     "watopia": {
         "beach_island_loop": {
-            "id": 26741693
+            "lap": [ 26741693 ],
+            "surfaces": {
+                "wood": 0.05,
+                "cobbles": 0.01,
+                "dirt": 0.06
+            }
         },
         "big_foot_hills": {
-            "id": 21911191
+            "lap": [ 21911191 ],
+            "surfaces": {
+                "wood": 0.03,
+                "dirt": 0.01
+            }
         },
         "big_loop": {
-            "id": 16402683
+            "lap": [ 16402683 ],
+            "surfaces": {
+                "wood": 0.02,
+                "cobbles": 0.01,
+                "dirt": 0.23
+            }
         },
         "bigger_loop": {
-            "id": 20425565
+            "lap": [ 20425565 ],
+            "surfaces": {
+                "wood": 0.02,
+                "cobbles": 0.01,
+                "dirt": 0.18
+            }
         },
         "climbers_gambit": {
-            "id": 29622065,
+            "lap": [ 29622065 ],
+            "lead_in": [],
             "custom_lap": [
                 31849943,
                 28778314,
                 27250592
-            ]
+            ],
+            "surfaces": {
+                "wood": 0.05,
+                "cobbles": 0.01,
+                "dirt": 0.01
+            }
         },
         "dust_in_the_wind": {
-            "id": 22458637
+            "lap": [ 22458637 ],
+            "surfaces": {
+                "wood": 0.04,
+                "dirt": 0.2
+            }
         },
         "figure_8_reverse": {
-            "id": 27177732
+            "lap": [ 27177732 ],
+            "surfaces": {
+                "wood": 0.06,
+                "cobbles": 0.02,
+                "dirt": 0.01
+            }
         },
         "figure_8": {
-            "id": 12118421
+            "lap": [ 12118421 ],
+            "surfaces": {
+                "wood": 0.06,
+                "cobbles": 0.02,
+                "dirt": 0.01
+            }
         },
         "flat_route": {
-            "id": 27130302
+            "lap": [ 27130302 ],
+            "surfaces": {
+                "wood": 0.09,
+                "cobbles": 0.02,
+                "dirt": 0.02
+            }
         },
         "four_horseman": {
-            "id": 28020745
+            "lap": [ 28020745 ],
+            "surfaces": {
+                "wood": 0.02,
+                "cobbles": 0.01,
+                "snow": 0.03,
+                "dirt": 0.11
+            }
         },
         "hilly_rotue": {
-            "id": 12118362
+            "lap": [ 12118362 ],
+            "surfaces": {
+                "wood": 0.02,
+                "cobbles": 0.03
+            }
         },
         "jungle_circuit": {
-            "id": 16359363,
-            "lead_in": 22391557,
-            "surface": "dirt"
+            "lap": [ 16359363 ],
+            "lead_in": [ 22391557 ],
+            "surfaces": {
+                "dirt": 0.97
+            }
         },
         "legends_and_lava": {
-            "id": 30630421,
+            "lap": [ 30630421 ],
             "custom_lap": [
                 19970445,
                 14032406,
                 14270131
-            ]
+            ],
+            "surfaces": {
+                "wood": 0.06,
+                "cobbles": 0.01,
+                "dirt": 0.01
+            }
         },
         "mountain_8": {
-            "id": 12118544
+            "lap": [ 12118544 ],
+            "surfaces": {
+                "wood": 0.05,
+                "cobbles": 0.01,
+                "snow": 0.09,
+                "dirt": 0.01
+            }
         },
         "mountain_route": {
-            "id": 12483517
+            "lap": [ 12483517 ],
+            "surfaces": {
+                "wood": 0.03,
+                "cobbles": 0.02,
+                "snow": 0.09,
+                "dirt": 0.01
+            }
         },
         "muir_and_mountain": {
-            "id": 22368918
+            "lap": [ 22368918 ],
+            "surfaces": {
+                "wood": 0.03,
+                "cobbles": 0.01,
+                "snow": 0.08,
+                "dirt": 0.01
+            }
         },
         "ocean_lava_cliffside_loop": {
-            "id": 26741663
+            "lap": [ 26741663 ],
+            "surfaces": {
+                "wood": 0.04,
+                "dirt": 0.05
+            }
         },
         "out_and_back_again": {
-            "id": 20350104
+            "lap": [ 20350104 ],
+            "surfaces": {
+                "wood": 0.05,
+                "cobbles": 0.01,
+                "dirt": 0.02
+            }
         },
         "quatch_quest": {
-            "id": 21344377,
+            "lap": [ 21344377 ],
+            "lead_in": [],
             "custom_lap": [
                 17267489,
                 17352925
-            ]
+            ],
+            "surfaces": {
+                "dirt": 0.13
+            }
         },
         "road_to_ruins": {
-            "id": 16404154,
-            "surface": "dirt"
+            "lap": [ 16404154 ],
+            "surfaces": {
+                "wood": 0.05,
+                "dirt": 0.33
+            }
         },
         "road_to_sky": {
-            "id": 22280036,
+            "lap": [ 22280036 ],
+            "lead_in": [],
             "custom_lap": [
                 17267489,
                 17352925
-            ]
+            ],
+            "surfaces": {
+                "dirt": 0.19
+            }
         },
         "sand_and_sequoias": {
-            "id": 21911197
+            "lap": [ 21911197 ]
         },
         "serpentine_8": {
-            "id": 26742092,
-            "lead_in": 26742088,
-            "surface": "dirt"
+            "lap": [ 26742092 ],
+            "lead_in": [ 26742088 ],
+            "surfaces": {
+                "brick": 0.07,
+                "wood": 0.02,
+                "dirt": 0.89
+            }
         },
         "tempus_fugit": {
-            "id": 20350088,
-            "lead_in": "???"
+            "lap": [ 20350088 ],
+            "lead_in": [ "???" ]
         },
         "mega_pretzel": {
-            "id": 16939150
+            "lap": [ 16939150 ],
+            "surfaces": {
+                "wood": 0.02,
+                "cobbles": 0.01,
+                "dirt": 0.19
+            }
         },
         "pretzel": {
-            "id": 12118762
+            "lap": [ 12118762 ],
+            "surfaces": {
+                "wood": 0.04,
+                "cobbles": 0.01,
+                "snow": 0.04,
+                "dirt": 0.01
+            }
         },
         "uber_pretzel": {
-            "id": 27313482,
+            "lap": [ 27313482 ],
+            "lead_in": [],
             "custom_lap": [
                 17267489,
                 17352925
-            ]
+            ],
+            "surfaces": {
+                "wood": 0.04,
+                "cobbles": 0.01,
+                "snow": 0.02,
+                "dirt": 0.11
+            }
         },
         "three_sisters": {
-            "id": 15159137
+            "lap": [ 15159137 ],
+            "surfaces": {
+                "wood": 0.04,
+                "cobbles": 0.01,
+                "snow": 0.06,
+                "dirt": 0.02
+            }
         },
         "tick_tock": {
-            "id": 20350376,
-            "lead_in": "???"
+            "lap": [ 20350376 ],
+            "lead_in": [ "???" ],
+            "surfaces": {
+                "wood": 0.03,
+                "dirt": 0.01
+            }
         },
         "tour_of_fire_and_ice": {
-            "id": 17265057,
+            "lap": [ 17265057 ],
+            "lead_in": [],
             "custom_lap": [
                 17267489,
                 17352925
-            ]
+            ],
+            "surfaces": {
+                "wood": 0.03,
+                "dirt": 0.17
+            }
         },
         "two_bridges_loop": {
-            "id": 26741685
+            "lap": [ 26741685 ],
+            "surfaces": {
+                "wood": 0.03,
+                "cobbles": 0.03
+            }
         },
         "volcano_circuit_ccw": {
-            "id": 14032426,
-            "lead_in": 19696151
+            "lap": [ 14032426 ],
+            "lead_in": [ 19696151 ]
         },
         "volcano_circuit": {
-            "id": 14032406,
-            "lead_in": 19696157
+            "lap": [ 14032406 ],
+            "lead_in": [ 19696157 ]
         },
         "volcano_climb": {
-            "id": 16425130
+            "lap": [ 16425130 ],
+            "surfaces": {
+                "wood": 0.06,
+                "dirt": 0.03
+            }
         },
         "volcano_flat": {
-            "id": 14032442
+            "lap": [ 14032442 ],
+            "surfaces": {
+                "wood": 0.06,
+                "cobbles": 0.01,
+                "dirt": 0.06
+            }
         },
         "watopias_waistband": {
-            "id": 20469780
+            "lap": [ 20469780 ],
+            "surfaces": {
+                "wood": 0.05,
+                "dirt": 0.03
+            }
         },
         "whole_lotta_lava": {
-            "id": 20545879
+            "lap": [ 20545879 ],
+            "surfaces": {
+                "wood": 0.04
+            }
         },
         "downtown_titans": {
-            "id": 23167123
+            "lap": [ 23167123 ]
         },
         "eastern_eight": {
-            "id": 22914116
+            "lap": [ 22914116 ],
+            "surfaces": {
+                "wood": 0.02
+            }
         },
         "three_little_sisters": {
-            "id": 22943213
+            "lap": [ 22943213 ],
+            "surfaces": {
+                "wood": 0.05,
+                "dirt": 0.01
+            }
         },
         "triple_flat_loops": {
-            "id": 20453276
+            "lap": [ 20453276 ],
+            "surfaces": {
+                "wood": 0.05,
+                "cobbles": 0.01,
+                "dirt": 0.02
+            }
         }
     },
     "makuri": {
         "bridges_and_boardwalks": {
-            "id": 33221600,
-            "lead_in": 33262797
+            "lap": [ 33221600 ],
+            "lead_in": [ 33262797 ],
+            "surfaces": {
+                "sand": 0.16,
+                "wood": 0.25
+            }
         },
         "castle_to_castle": {
-            "id": 30629803
+            "lap": [ 30629803 ],
+            "surfaces": {
+                "brick": 0.11,
+                "cobbles": 0.05,
+                "dirt": 0.06
+            }
         },
         "chain_chomper": {
-            "id": 28430973
+            "lap": [ 28430973 ],
+            "surfaces": {
+                "wood": 0.08,
+                "cobbles": 0.08,
+                "dirt": 0.29
+            }
         },
         "chasing_the_sun": {
-            "id": 30988311
+            "lap": [ 30988311 ],
+            "surfaces": {
+                "brick": 0.23,
+                "wood": 0.04,
+                "dirt": 0.15
+            }
         },
         "country_to_coastal": {
-            "id": 33238095
+            "lap": [ 33238095 ],
+            "surfaces": {
+                "sand": 0.24,
+                "wood": 0.09,
+                "dirt": 0.04
+            }
         },
         "countryside_tour": {
-            "id": 28431416
+            "lap": [ 28431416 ],
+            "surfaces": {
+                "wood": 0.07,
+                "dirt": 0.25
+            }
         },
         "electric_loop": {
-            "id": 30987848
+            "lap": [ 30987848 ],
+            "surfaces": {
+                "brick": 0.19
+            }
         },
         "farmland_loop": {
-            "id": 29534888
+            "lap": [ 29534888 ],
+            "surfaces": {
+                "dirt": 0.01
+            }
         },
         "fine_and_sandy": {
-            "id": 33237114
+            "lap": [ 33237114 ],
+            "surfaces": {
+                "sand": 0.34,
+                "wood": 0.12,
+                "dirt": 0.28
+            }
         },
         "flatland_loop": {
-            "id": 29129813
+            "lap": [ 29129813 ],
+            "surfaces": {
+                "wood": 0.03
+            }
         },
         "island_hopper": {
-            "id": 33236919
+            "lap": [ 33236919 ],
+            "surfaces": {
+                "sand": 0.4,
+                "wood": 0.12,
+                "dirt": 0.11
+            }
         },
         "island_outskirts": {
-            "id": 33237309
+            "lap": [ 33237309 ],
+            "surfaces": {
+                "sand": 0.34,
+                "wood": 0.11,
+                "dirt": 0.07
+            }
         },
         "kappa_quest_reverse": {
-            "id": 29009500,
-            "lead_in": 29559312,
-            "surface": "dirt"
+            "lap": [ 29009500 ],
+            "lead_in": [ 29559312 ],
+            "surfaces": {
+                "wood": 0.13,
+                "dirt": 0.59
+            }
         },
         "kappa_quest": {
-            "id": 28432243,
-            "lead_in": 28432204,
-            "surface": "dirt"
+            "lap": [ 28432243 ],
+            "lead_in": [ 28432204 ],
+            "surfaces": {
+                "wood": 0.13,
+                "dirt": 0.59
+            }
         },
         "makuri_40": {
-            "id": 33237747
+            "lap": [ 33237747 ],
+            "surfaces": {
+                "sand": 0.18,
+                "brick": 0.08,
+                "wood": 0.06,
+                "cobbles": 0.05
+            }
         },
         "mech_isle_loop": {
-            "id": 33214506
+            "lap": [ 33214506 ],
+            "surfaces": {
+                "sand": 0.06,
+                "wood": 0.07,
+                "dirt": 0.42
+            }
         },
         "neokyo_all_nighter": {
-            "id": 30407658
+            "lap": [ 30407658 ],
+            "surfaces": {
+                "brick": 0.58,
+                "wood": 0.01
+            }
         },
         "neon_flats": {
-            "id": 30414842
+            "lap": [ 30414842 ],
+            "surfaces": {
+                "brick": 0.33
+            }
         },
         "railways_and_rooftops": {
-            "id": 30407802,
-            "lead_in": "???"
+            "lap": [ 30407802 ],
+            "lead_in": [ "???" ],
+            "surfaces": {
+                "brick": 0.91,
+                "wood": 0.02
+            }
         },
         "rooftop_rendevous": {
-            "id": 30407898,
-            "lead_in": "???"
+            "lap": [ 30407898 ],
+            "lead_in": [ "???" ],
+            "surfaces": {
+                "brick": 0.85,
+                "wood": 0.03
+            }
         },
         "sea_to_tree": {
-            "id": 28432204,
-            "custom_lap": [ 28432243 ]
+            "lap": [ 28432243 ],
+            "lead_in": [ 28432204 ],
+            "surfaces": {
+                "wood": 0.17,
+                "dirt": 0.73
+            }
         },
         "sleepless_city": {
-            "id": 30407957
+            "lap": [ 30407957 ],
+            "surfaces": {
+                "brick": 0.29
+            }
         },
         "spirit_forest": {
-            "id": 28432455,
-            "lead_in": "???"
+            "lap": [ 28432455 ],
+            "lead_in": [ "???" ],
+            "surfaces": {
+                "wood": 0.12,
+                "dirt": 0.67
+            }
         },
         "sprinters_playground": {
-            "id": 30412485
+            "lap": [ 30412485 ],
+            "surfaces": {
+                "brick": 0.5
+            }
         },
         "sukis_playground": {
-            "id": 29009511
+            "lap": [ 29009511 ],
+            "surfaces": {
+                "wood": 0.03
+            }
         },
         "temples_and_towers": {
-            "id": 30408107
+            "lap": [ 30408107 ],
+            "surfaces": {
+                "brick": 0.23,
+                "wood": 0.03,
+                "cobbles": 0.07,
+                "dirt": 0.16
+            }
         },
         "three_village_loop": {
-            "id": 28433076
+            "lap": [ 28433076 ],
+            "surfaces": {
+                "wood": 0.05
+            }
         },
         "turf_n_surf": {
-            "id": 33238344
+            "lap": [ 33238344 ],
+            "surfaces": {
+                "sand": 0.29,
+                "brick": 0.07,
+                "wood": 0.08,
+                "dirt": 0.05
+            }
         },
         "twilight_harbor": {
-            "id": 30629791
+            "lap": [ 30629791 ],
+            "surfaces": {
+                "brick": 0.19
+            }
         },
         "two_village_loop": {
-            "id": 28433439
+            "lap": [ 28433439 ],
+            "surfaces": {
+                "wood": 0.01,
+                "dirt": 0.23
+            }
         },
         "valley_to_mountaintop": {
-            "id": 29559312,
-            "custom_lap": [ 29009500 ]
+            "lap": [ 29009500 ],
+            "lead_in": [ 29559312 ],
+            "surfaces": {
+                "wood": 0.12,
+                "dirt": 0.65
+            }
         },
         "wandering_flats": {
-            "id": 30408380
+            "lap": [ 30408380 ],
+            "surfaces": {
+                "brick": 0.07,
+                "wood": 0.02,
+                "cobbles": 0.05
+            }
         }
     },
     "richmond": {
         "worlds": {
-            "id": 12128718
+            "lap": [ 12128718 ],
+            "surfaces": {
+                "cobbles": 0.17
+            }
         },
         "cobbled_climbs": {
-            "id": 11308213
+            "lap": [ 11308213 ],
+            "surfaces": {
+                "cobbles": 0.06
+            }
         },
         "worlds_reverse": {
-            "id": 22809649,
-            "first_lap": 33465477
+            "lap": [ 22809649 ],
+            "lead_in": [ 33465477 ],
+            "surfaces": {
+                "cobbles": 0.17
+            }
         },
         "fan_flats": {
-            "id": 19852166,
-            "first_lap": 19852135
+            "lap": [ 19852166 ],
+            "lead_in": [ 19852135 ],
+            "surfaces": {
+                "cobbles": 0.45
+            }
         }
     },
     "london": {
         "classique": {
-            "id": 12749761,
-            "first_lap": 12787386
+            "lap": [ 12749761 ],
+            "lead_in": [ 12787386 ],
+            "surfaces": {
+            }
         },
         "greater_london_8": {
-            "id": 15158866
+            "lap": [ 15158866 ],
+            "surfaces": {
+                "wood": 0.05,
+                "cobbles": 0.01
+            }
         },
         "greater_london_flat": {
-            "id": 15389301,
-            "first_lap": 15389276
+            "lap": [ 15389301 ],
+            "lead_in": [ 15389276 ],
+            "surfaces": {
+            }
         },
         "greater_london_loop": {
-            "id": 15158576
+            "lap": [ 15158576 ],
+            "surfaces": {
+                "wood": 0.06,
+                "cobbles": 0.01
+            }
         },
-        "greatest_london_float": {
-            "id": 16982511,
-            "lead_in": 25013774
+        "greatest_london_flat": {
+            "lap": [ 16982511 ],
+            "lead_in": [ 25013774 ],
+            "surfaces": {
+                "wood": 0.05,
+                "cobbles": 0.01
+            }
         },
         "greatest_london_loop": {
-            "id": 16781177
+            "lap": [ 16781177 ],
+            "surfaces": {
+                "wood": 0.05,
+                "cobbles": 0.01
+            }
         },
         "london_8": {
-            "id": 12747814
+            "lap": [ 12747814 ],
+            "surfaces": {
+                "wood": 0.06,
+                "cobbles": 0.01
+            }
         },
         "london_loop": {
-            "id": 12749649
+            "lap": [ 12749649 ],
+            "surfaces": {
+                "wood": 0.09,
+                "cobbles": 0.02
+            }
         },
         "surrey_hills": {
-            "id": 24008116,
-            "first_lap": 20785354
+            "lap": [ 24008116 ],
+            "lead_in": [ 20785354 ]
         },
         "london_pretzel": {
-            "id": 15155838
+            "lap": [ 15155838 ],
+            "surfaces": {
+                "wood": 0.05,
+                "cobbles": 0.01
+            }
         },
         "prl_full": {
-            "id": 12759760
+            "lap": [ 12759760 ],
+            "surfaces": {
+                "wood": 0.09,
+                "cobbles": 0.02
+            }
         },
         "prl_half": {
-            "id": 12759713
+            "lap": [ 12759713 ],
+            "surfaces": {
+                "wood": 0.09,
+                "cobbles": 0.02
+            }
         },
         "triple_loops": {
-            "id": 16781219
+            "lap": [ 16781219 ],
+            "surfaces": {
+                "wood": 0.03,
+                "cobbles": 0.01
+            }
         }
     },
     "france": {
         "casse_pattes": {
-            "id": 24674909,
-            "lead_in": 24700908
+            "lap": [ 24674909 ],
+            "lead_in": [ 24700908 ],
+            "surfaces": {
+                "cobbles": 0.06
+            }
         },
         "douce_france": {
-            "id": 24676077,
-            "first_lap": 24676071
+            "lap": [ 24676077 ],
+            "lead_in": [ 24676071 ],
+            "surfaces": {
+                "cobbles": 0.05
+            }
         },
         "la_reine": {
-            "id": 33465483,
-            "custom_lap": []
+            "lap": [ 33465483 ]
         },
         "petit_boucle": {
-            "id": 24676054
+            "lap": [ 24676054 ],
+            "surfaces": {
+                "cobbles": 0.04
+            }
         },
         "rgv": {
-            "id": 24685955,
-            "lead_in": 24700908
+            "lap": [ 24685955 ],
+            "lead_in": [ 24700908 ],
+            "surfaces": {
+                "cobbles": 0.05
+            }
         },
         "roule_ma_poule": {
-            "id": 24690956,
-            "lead_in": 24690923
+            "lap": [ 24690956 ],
+            "lead_in": [ 24690923 ],
+            "surfaces": {
+                "cobbles": 0.06
+            }
         },
         "tire_bouchon": {
-            "id": 24690941,
-            "lead_in": 24690923
+            "lap": [ 24690941 ],
+            "lead_in": [ 24690923 ],
+            "surfaces": {
+                "cobbles": 0.04
+            }
         },
         "ventop": {
-            "id": 24682608,
-            "custom_lap": []
+            "lap": [ 24682608 ],
+            "lead_in": []
         }
     },
     "scotland": {},
     "yorkshire": {
         "worlds": {
-            "id": 21738724
+            "lap": [ 21738724 ]
         },
         "duchy_estate": {
-            "id": 21748097,
-            "lead_in": 22279853
+            "lap": [ 21748097 ],
+            "lead_in": [ 22279853 ]
         },
         "queens_highway": {
-            "id": 21748253,
-            "first_lap": 21748231
+            "lap": [ 21748253 ],
+            "lead_in": [ 21748231 ]
         },
         "royal_pump_room_8": {
-            "id": 21757792
+            "lap": [ 21757792 ]
         },
         "tour_of_tewit_well": {
-            "id": 21758283
+            "lap": [ 21758283 ]
         }
     },
     "new_york": {
         "astoria_line_8": {
-            "id": 19141340
+            "lap": [ 19141340 ]
         },
         "everything_bagel": {
-            "id": 19141223
+            "lap": [ 19141223 ]
         },
         "gotham_grind": {
-            "id": 19820820
+            "lap": [ 19820820 ]
         },
         "grand_central_circuit": {
-            "id": 19141192
+            "lap": [ 19141192 ]
         },
         "knickerbocker": {
-            "id": 19141299
+            "lap": [ 19141299 ]
         },
         "knickerbocker_reverse": {
-            "id": 20721179
+            "lap": [ 20721179 ]
         },
         "lady_liberty": {
-            "id": 19141269
+            "lap": [ 19141269 ]
         },
         "mighty_metropolitan": {
-            "id": 19141368
+            "lap": [ 19141368 ]
         },
         "park_perimeter_loop": {
-            "id": 19170651
+            "lap": [ 19170651 ]
         },
         "rising_empire": {
-            "id": 19171748
+            "lap": [ 19171748 ]
         },
         "6_train": {
-            "id": 19172136
+            "lap": [ 19172136 ]
         },
         "highline": {
-            "id": 19173163,
-            "lead_in": 0
+            "lap": [ 19173163 ],
+            "lead_in": [ "???" ]
         }
     },
     "innsbruck": {
         "worlds": {
-            "id": 18397725
+            "lap": [ 18397725 ],
+            "surfaces": {
+                "brick": 0.02,
+                "cobbles": 0.01
+            }
         },
         "achterbahn": {
-            "id": 18398698
+            "lap": [ 18398698 ],
+            "surfaces": {
+                "brick": 0.02,
+                "cobbles": 0.01
+            }
         },
         "innsbruckring": {
-            "id": 18398895
+            "lap": [ 18398895 ],
+            "surfaces": {
+                "brick": 0.04,
+                "cobbles": 0.03
+            }
         },
         "lutscher": {
-            "id": 18407469,
-            "first_lap": 18407469
+            "lap": [ 18406532 ],
+            "lead_in": [ 18406508 ]
         },
         "lutscher_ccw": {
-            "id": 18406508,
-            "first_lap": 18407469
+            "lap": [ 18408872 ],
+            "lead_in": [ 18407469 ]
         }
     }
 }
