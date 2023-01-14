@@ -17,6 +17,7 @@ def _parse_delta(delta):
         return timedelta(**parts)
 
 
+# TODO(me): Change these to a function which takes in a time interval
 class Interval(object):
 
     def __init__(self, raw_str, matcher, **kwargs):

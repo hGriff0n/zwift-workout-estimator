@@ -1,5 +1,7 @@
 
+import argparse
 from bs4 import BeautifulSoup
+import json
 import jsonpickle
 import re
 import requests
@@ -215,18 +217,47 @@ class ZwiftController(object):
         return ZwiftRide(self)
 
 
+def load_strava_from_config_file():
+    with open('strava_secrets.json') as f:
+        strava_secrets = json.load(f)
+        STRAVA_CLIENT_ID = int(strava_secrets['client_id'])
+        STRAVA_CLIENT_SECRET = strava_secrets['client_secret']
+        STRAVA_REFRESH_TOKEN = strava_secrets['refresh_token']
+    return strava.init_client(STRAVA_CLIENT_ID, STRAVA_CLIENT_SECRET, STRAVA_REFRESH_TOKEN)
+
+
+
+# TODO(me): Incorporate elevation reporting
+# TODO(me): Check time duration, workouts seem to be lasting much longer than workouts
+# TODO(me): Make a "test" script that the workout file with specific args
+# TODO(me): Starting at the 2nd lap, distance calculation seems to include a segment of -1Lap length
+# causing an infinite loop
+# TODO(me): Validate this matches the previous version
+# TODO(me): Figure out domain error, start/end is really weird (legacy)
 ## main
+if __name__ == '__main__':
+    p = argparse.ArgumentParser(prog='ZwiftEstimate')
+    p.add_argument('route')
+    p.add_argument('-w', '--workout', default='ftp-builder.week-5-day-2-threshold-development')
+    p.add_argument('-m', '--weight', type=float, default=90)
+    p.add_argument('-e', '--height', type=int, default=180)
+    p.add_argument('-f', '--ftp', type=int, default=256)
+    p.add_argument('-b', '--bike', default='emonda')
+    p.add_argument('-c', '--wheels', default='meilensteins')
+    args = p.parse_args()
 
-client = strava.init_client(STRAVA_CLIENT_ID, STRAVA_CLIENT_SECRET, STRAVA_REFRESH_TOKEN)
-me = physics.Rider(90, 180, 256)
-me.set_bike(0)
-me.set_wheels(0)
-w =  WorkoutManager(me)
+    client = load_strava_from_config_file()
+    me = physics.Rider(args.weight, args.height, args.ftp)
+    me.set_bike(0)
+    me.set_wheels(0)
+    w = WorkoutManager(me)
 
-zwift = ZwiftController(me, client, w)
-zwift.load_workout(url=r'https://whatsonzwift.com/workouts/ftp-builder/week-4-day-4-tempo')
-zwift.load_route_profile('watopia.road_to_sky')
+    zwift = ZwiftController(me, client, w)
+    zwift.load_route_profile(args.route)
 
-for v, d, t in zwift:
-    m, s = divmod(t, 60)
-    print(f't={m:.0f}m{s:.0f}s r={me} v={v*3.6:.2f}kph d={d/1000:.2f}km')
+    plan, workout = args.workout.split('.')
+    zwift.load_workout(f'https://whatsonzwift.com/workouts/{plan}/{workout}')
+
+    for v, d, t in zwift:
+        m, s = divmod(t, 60)
+        print(f't={m:.0f}m{s:.0f}s r={me} v={v*3.6:.2f}kph d={d/1000:.2f}km')
