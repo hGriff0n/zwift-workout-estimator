@@ -8,13 +8,6 @@ import math
 GRAVITY = 9.8067 # m/s*s
 AIR_DENSITY = 1.225 # kg/m**3
 
-# Taken from tables in https://johnedevans.wordpress.com/2018/05/31/the-physics-of-zwift-cycling/
-EMONDA_MASS = 4
-WHEEL_CD = 0.1057
-EMONDA_CD = 0.0714
-RIDER_CD = 0.5 # Computed from richmond tables
-TOTAL_CD = WHEEL_CD + EMONDA_CD + RIDER_CD
-
 
 # Taken from zwiftinsider tables
 # Not sure how to handle this overall as it can vary within a route (maybe world averages?)
@@ -37,7 +30,14 @@ class CyclingObject(object):
         return self._cd
 
 
-class Wheels(CyclingObject):
+class Bike(CyclingObject):
+
+    @property
+    def frontal_area(self):
+        return 0.1647
+
+
+class WheelSet(CyclingObject):
 
     def __init__(self, mass, cd, _type):
         super().__init__(mass, cd)
@@ -54,13 +54,12 @@ class Wheels(CyclingObject):
 
 
 # Physics modelling class for zwift rider. Provides two
-class Rider(object):
+class Rider(CyclingObject):
 
     # mass in kg, height in cm, ftp in w
     def __init__(self, mass: int, height: int, ftp: int):
+        super().__init__(mass, 0.5)  # Rider Cd taken from richmond dataset (https://johnedevans.wordpress.com/2018/05/31/the-physics-of-zwift-cycling/)
         self._bike, self._wheels = None, None
-
-        self._mass = mass
         self._height = height
 
         self._ftp = ftp
@@ -97,31 +96,33 @@ class Rider(object):
     def start_ride(self):
         self._v = 0
 
-    def set_bike(self, bike):
-        print(f'Functionality currently unimplemented. Ignoring bike {bike}, using EMONDA')
-        self._bike = CyclingObject(EMONDA_MASS, EMONDA_CD)
+    def _add_accessory(self, obj, remove=False):
+        sign = -1 if remove else 1
+        self._cd += (obj.cd * sign)
+        self._mass += (obj.mass * sign)
 
-    # TODO(me): Figure out the wheel mass
+    def set_bike(self, bike):
+        if not isinstance(bike, Bike):
+            raise Exception("Can only ride a bike")
+        if self._bike:
+            self._add_accessory(self._bike, remove=True)
+        self._bike = bike
+        self._add_accessory(self._bike)
+
     def set_wheels(self, wheels):
-        print(f'Functionality currently unimplemented. Ignoring wheels {wheels}, using EMONDA')
-        self._wheels = Wheels(0, WHEEL_CD, 'road')
+        if not isinstance(wheels, WheelSet):
+            raise Exception("Bikes can only be fitted with wheels")
+        if self._wheels:
+            self._add_accessory(self._wheels, remove=True)
+        self._wheels = wheels
+        self._add_accessory(self._wheels)
 
     def __repr__(self):
         return f'{self._mass}kg ftp={self.ftp}w'
 
     @property
-    def mass(self):
-        return self._mass + self._bike.mass + self._wheels.mass
-
-    @property
     def frontal_area(self):
-        BIKE_AREA = 0.1647
-        return 0.0276*math.pow(self._height / 100, 0.725)*math.pow(self.mass, 0.425) + BIKE_AREA
-
-    @property
-    def cd(self):
-        RIDER_CD = 0.5 # Computed from richmond tables
-        return RIDER_CD + self._wheels.cd + self._bike.cd
+        return 0.0276*math.pow(self._height / 100, 0.725)*math.pow(self.mass, 0.425) + self._bike.frontal_area
 
     @property
     def velocity(self):

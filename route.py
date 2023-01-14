@@ -91,11 +91,30 @@ class Route(object):
             self._lead_in_distance += leadin[-1].distance
             self._leadin = iter(leadin)
 
-    def __init__(self, name, segments, zwift_loader):
+    def __init__(self, name, segments, strava_client):
         self._name = name
+        self._client = strava_client
         self._surfaces = segments.get('surfaces', {})
-        self._load_lap(segments, zwift_loader)
-        self._load_leadin(segments, zwift_loader)
+        self._load_lap(segments)
+        self._load_leadin(segments)
+
+    def _grab_segment_points(self, segment_id):
+        s = self._client.get_segment_streams(segment_id, types=['distance', 'altitude'])
+        it = zip(s['distance'].data, s['altitude'].data)
+        points = [Point(*next(it))]
+        prev = None
+        for d, e in it:
+            p = Point(d, e)
+            if p.elevation == points[-1].elevation:
+                prev = p
+            else:
+                if prev is not None:
+                    points.append(prev)
+                    prev = None
+                points.append(p)
+        if prev is not None:
+            points.append(prev)
+        return points
 
     @property
     def length(self):
@@ -114,3 +133,7 @@ class Route(object):
 
 with open("routes.json") as fp:
     ROUTE_DIRECTORY = json.load(fp)
+
+def load_route(name, strava_client):
+    world, route_ = name.split('.')
+    return Route(name, ROUTE_DIRECTORY[world][route_], strava_client)
