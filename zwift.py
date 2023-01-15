@@ -7,13 +7,18 @@ import strava
 import workouts
 
 
+def split_time(t):
+    m, s = divmod(t, 60)
+    return f'{m:.0f}m{s:.0f}s'
+
+
 # Zwift simulation controllers
 class ZwiftRide(object):
     # iterator class for simulating a specific ride
     DT = 0.1
 
     def __init__(self, rider, workout, zroute):
-        self._rider = rider
+        self._rider = rider.reset()
         self._route_length = zroute.length
         self._surfaces = zroute.surfaces
 
@@ -30,8 +35,8 @@ class ZwiftRide(object):
         # Init physics variables
         self._timer = 0
         self._interval_start = 0
-        self._velocity = 0
         self._distance = 0
+        self._elevation = 0
         self._laps = []
 
     # TODO(me): Could there be a possible problem here if a rider completely covers one interval in between ticks?
@@ -47,41 +52,45 @@ class ZwiftRide(object):
     def _get_current_segment(self):
         count = 0
         while self._distance >= self._segment.traveled:
+            self._elevation += max(self._segment.delta, 0)
             count += 1
             if count > 20:
-                for i, lap in enumerate(self._laps):
-                    print(f'Workout would complete lap {i + 1} in {lap}')
+                self._report_laps()
                 raise Exception("Runaway due to known bug caused by completing 2 laps. Route distance calculation accidentally deletes one lap from distance causing infinite loop. TODO(me): Fix")
             self._segment = next(self._route_iter)
             print(f'==>Grabbed next route segment: {self._segment}')
         return self._segment
 
-    def _apply_expected_power(self, interval, segment):
-        watts = interval.target(self._rider.ftp)
-        return self._rider.next_velocity(watts, self._velocity, segment.gradient, self.DT, self._surfaces)
+    def _report_laps(self):
+        for i, lap in enumerate(self._laps):
+            print(f'Workout would complete lap {i + 1} in {lap}')
 
     def __next__(self):
         if self._timer >= self._workout_time:
-            for i, lap in enumerate(self._laps):
-                print(f'Workout would complete lap {i + 1} in {lap}')
+            self._report_laps()
             current_lap_progress = self._distance - (len(self._laps) * self._route_length)
             pct_rte = current_lap_progress / self._route_length
-            print(f"Workout would only finish {pct_rte:%} of the current lap ({current_lap_progress/1000:.2f}km out of {rte_length/1000:.2f}km)")
+            print(f"Workout would only finish {pct_rte:%} of the current lap ({current_lap_progress/1000:.2f}km out of {self._route_length/1000:.2f}km, {self._elevation}m gained)")
             raise StopIteration("")
 
         if self._distance >= self._route_length * (len(self._laps) + 1):
             rem = self._workout_time - self._timer
-            m, s = divmod(self._timer, 60)
-            self._laps.append(f'{m:.0f}m{s:.0f}s (with {rem:.2f}s to-go in the workout)')
+            t = split_time(self._timer)
+            self._laps.append(f'{t} (with {rem:.2f}s to-go in the workout)')
 
-        interval = self._get_current_interval()
         segment = self._get_current_segment()
 
-        self._distance +=  self._velocity * self.DT
-        v, self._velocity = self._velocity, self._apply_expected_power(interval, segment)
+        # TODO(me): Would this make more sense to apply before grabbing next segment?
+        v = self._rider.velocity
+        self._distance += v * self.DT
+
+        interval = self._get_current_interval()
+        watts = interval.target(self._rider.ftp)
+
+        self._rider.apply_watts(watts, segment.gradient, self.DT, self._surfaces)
 
         self._timer += self.DT
-        return (v, self._distance, self._timer)
+        return (v, self._distance, self._elevation, self._timer)
 
 class ZwiftController(object):
     # general controller class for managing workout/route selection and loading
@@ -101,9 +110,7 @@ class ZwiftController(object):
 
 # TODO(me): convert intervals to have a dt interface instead of producing list of dicts
 # TODO(me): ZwiftRide can still be simplified with changes to route iterator
-# TODO(me): Incorporate elevation reporting
 # TODO(me): Check time duration, workouts seem to be lasting much longer than workouts
-# TODO(me): Make a "test" script that the workout file with specific args
 # TODO(me): Starting at the 2nd lap, distance calculation seems to include a segment of -1Lap length
 # causing an infinite loop
 # TODO(me): Validate this matches the previous version
@@ -123,22 +130,16 @@ if __name__ == '__main__':
 
     client = strava.load_from_config('strava_secrets.json')
 
-    # Construct default bike and wheels
-    # Values taken from https://johnedevans.wordpress.com/2018/05/31/the-physics-of-zwift-cycling/
-    emonda = physics.Bike(4, 0.0714)
-    meilensteins = physics.WheelSet(1.45, 0.1243, 'road')
-    zipp_404 = physics.WheelSet(1.8, 0.1057, 'road')
-
     me = physics.Rider(args.weight, args.height, args.ftp)
-    me.set_bike(emonda)
-    me.set_wheels(meilensteins)
+    me.set_bike(physics.BIKES.get(args.bike))
+    me.set_wheels(physics.WHEELS.get(args.wheels))
 
     zwift = ZwiftController(me, client)
     zwift.set_route(args.route)
 
-    wl = workouts.WorkoutLoader(me, client)
+    wl = workouts.WorkoutLoader(me)
     zwift.set_workout(wl.load_workout(name=args.workout))
 
-    for v, d, t in zwift:
-        m, s = divmod(t, 60)
-        print(f't={m:.0f}m{s:.0f}s r={me} v={v*3.6:.2f}kph d={d/1000:.2f}km')
+    for v, d, e, t in zwift:
+        ts = split_time(t)
+        print(f't={ts} r={me} v={v*3.6:.2f}kph d={d/1000:.2f}km e={e}m')

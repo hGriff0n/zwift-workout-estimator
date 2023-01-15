@@ -74,18 +74,18 @@ class Route(object):
     """
 
     # TODO(me): Zwift loader doesn't have a "known" type at this point
-    def _load_lap(self, segments, zwift_loader):
+    def _load_lap(self, segments):
         segment_id = segments['lap'][0]
-        lap = zwift_loader._grab_segment_points(segment_id)
+        lap = self._grab_segment_points(segment_id)
         self._lap_distance = lap[-1].distance
         self._lap = iter(lap)
         self._leadin = None
         self._lead_in_distance = 0
 
-    def _load_leadin(self, segments, zwift_loader):
+    def _load_leadin(self, segments):
         leadin = []
         if segments.get('lead_in', []):
-            leadin = zwift_loader._grab_segment_points(segments['lead_in'][0])
+            leadin = self._grab_segment_points(segments['lead_in'][0])
 
         if leadin:
             self._lead_in_distance += leadin[-1].distance

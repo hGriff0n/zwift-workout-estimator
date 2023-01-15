@@ -15,6 +15,7 @@ with open('road_values.json') as road_fp:
     CRR_MAP = json.load(road_fp)['crr']
 
 
+# Values taken from https://johnedevans.wordpress.com/2018/05/31/the-physics-of-zwift-cycling/
 class CyclingObject(object):
 
     def __init__(self, mass, cd):
@@ -32,6 +33,9 @@ class CyclingObject(object):
 
 class Bike(CyclingObject):
 
+    def __init__(self, aero: int, weight: int):
+        super().__init__(8 - weight, .0874 - .008*aero)
+
     @property
     def frontal_area(self):
         return 0.1647
@@ -39,8 +43,8 @@ class Bike(CyclingObject):
 
 class WheelSet(CyclingObject):
 
-    def __init__(self, mass, cd, _type):
-        super().__init__(mass, cd)
+    def __init__(self, aero: int, weight: int, _type: str):
+        super().__init__(2.2 - weight*.2, .1801 - .0186*aero)
         self._crr_map = CRR_MAP[_type]
 
     def crr(self, surfaces: dict):
@@ -51,6 +55,10 @@ class WheelSet(CyclingObject):
                 crr += self._crr_map[surface] * pct
                 rem -= pct
         return crr + self._crr_map['road'] * rem
+
+class RoadWheels(WheelSet):
+    def __init__(self, aero: int, weight: int):
+        super().__init__(aero=aero, weight=weight, _type='road')
 
 
 # Physics modelling class for zwift rider. Provides two
@@ -85,16 +93,11 @@ class Rider(CyclingObject):
         v = self._v
         power_needed = self.sustaining_power(gradient, surfaces)
         v = v*v + 2 * (watts - power_needed) * dt / self.mass
-        return math.sqrt(v)
+        self._v = math.sqrt(v)
 
-    # TODO(me): Deprecated
-    # https://physics.stackexchange.com/questions/226854/how-can-i-model-the-acceleration-velocity-of-a-bicycle-knowing-only-the-power-ou
-    def next_velocity(self, pedal_power: float, velocity: float, gradient: float, dt: float, surfaces: dict):
-        self._v = velocity
-        return self.apply_watts(pedal_power, gradient, dt, surfaces)
-
-    def start_ride(self):
+    def reset(self):
         self._v = 0
+        return self
 
     def _add_accessory(self, obj, remove=False):
         sign = -1 if remove else 1
@@ -126,8 +129,20 @@ class Rider(CyclingObject):
 
     @property
     def velocity(self):
-        return self._velocity
+        return self._v
 
     @property
     def ftp(self):
         return self._ftp
+
+
+BIKES = {
+    'emonda': Bike(4, 0.0714)
+}
+
+WHEELS = {
+    'meilensteins': RoadWheels(weight=4, aero=3),
+    'dt_swiss': RoadWheels(weight=3, aero=4),
+    'cadex': RoadWheels(weight=3, aero=4),
+    'enve': RoadWheels(weight=3, aero=4),
+}
