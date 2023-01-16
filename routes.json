@@ -32,8 +32,9 @@
             }
         },
         "climbers_gambit": {
-            "lap": [ 29622065 ],
-            "lead_in": [],
+            "lap": [ 28770114 ],
+            "lead_in": [ 29622065 ],
+            "comment": "not enough segments for loop",
             "custom_lap": [
                 31849943,
                 28778314,
@@ -47,6 +48,7 @@
         },
         "dust_in_the_wind": {
             "lap": [ 22458637 ],
+            "comment": "segment 21563640 is too long for lead-in",
             "surfaces": {
                 "wood": 0.04,
                 "dirt": 0.2
@@ -85,7 +87,7 @@
                 "dirt": 0.11
             }
         },
-        "hilly_rotue": {
+        "hilly_route": {
             "lap": [ 12118362 ],
             "surfaces": {
                 "wood": 0.02,
@@ -100,12 +102,9 @@
             }
         },
         "legends_and_lava": {
-            "lap": [ 30630421 ],
-            "custom_lap": [
-                19970445,
-                14032406,
-                14270131
-            ],
+            "lead_in": [ 30630421, 19970445 ],
+            "comment": "segment 20545879 isn't technically correctly aligned",
+            "lap": [ 20545879 ],
             "surfaces": {
                 "wood": 0.06,
                 "cobbles": 0.01,
@@ -132,6 +131,7 @@
         },
         "muir_and_mountain": {
             "lap": [ 22368918 ],
+            "comment": "segment 21563640 is too long for lead-in",
             "surfaces": {
                 "wood": 0.03,
                 "cobbles": 0.01,
@@ -148,6 +148,8 @@
         },
         "out_and_back_again": {
             "lap": [ 20350104 ],
+            "lead_in": [ 20350107 ],
+            "comment": "lead-in segment is too short, but generally flat",
             "surfaces": {
                 "wood": 0.05,
                 "cobbles": 0.01,
@@ -155,12 +157,8 @@
             }
         },
         "quatch_quest": {
-            "lap": [ 21344377 ],
-            "lead_in": [],
-            "custom_lap": [
-                17267489,
-                17352925
-            ],
+            "lap": [ 17352925, 17267489 ],
+            "lead_in": [ 21344377 ],
             "surfaces": {
                 "dirt": 0.13
             }
@@ -173,18 +171,16 @@
             }
         },
         "road_to_sky": {
-            "lap": [ 22280036 ],
-            "lead_in": [],
-            "custom_lap": [
-                17267489,
-                17352925
-            ],
+            "lap": [ 17352925, 17267489 ],
+            "lead_in": [ 22280036 ],
             "surfaces": {
                 "dirt": 0.19
             }
         },
         "sand_and_sequoias": {
-            "lap": [ 21911197 ]
+            "lap": [ 21911197 ],
+            "lead_in": [ 20350107 ],
+            "comment": "lead-in segment is too short, but generally flat"
         },
         "serpentine_8": {
             "lap": [ 26742092 ],
@@ -197,7 +193,8 @@
         },
         "tempus_fugit": {
             "lap": [ 20350088 ],
-            "lead_in": [ "???" ]
+            "lead_in": [ 20350107 ],
+            "comment": "lead-in segment is too short, but generally flat"
         },
         "mega_pretzel": {
             "lap": [ 16939150 ],
@@ -217,12 +214,8 @@
             }
         },
         "uber_pretzel": {
-            "lap": [ 27313482 ],
-            "lead_in": [],
-            "custom_lap": [
-                17267489,
-                17352925
-            ],
+            "lap": [ 17352925, 17267489 ],
+            "lead_in": [ 27313482 ],
             "surfaces": {
                 "wood": 0.04,
                 "cobbles": 0.01,
@@ -241,19 +234,16 @@
         },
         "tick_tock": {
             "lap": [ 20350376 ],
-            "lead_in": [ "???" ],
+            "lead_in": [ 20350107 ],
+            "comment": "lead-in segment is too short, but generally flat",
             "surfaces": {
                 "wood": 0.03,
                 "dirt": 0.01
             }
         },
         "tour_of_fire_and_ice": {
-            "lap": [ 17265057 ],
-            "lead_in": [],
-            "custom_lap": [
-                17267489,
-                17352925
-            ],
+            "lap": [ 17352925, 17267489 ],
+            "lead_in": [ 19696157, 17265057 ],
             "surfaces": {
                 "wood": 0.03,
                 "dirt": 0.17
@@ -291,6 +281,8 @@
         },
         "watopias_waistband": {
             "lap": [ 20469780 ],
+            "lead_in": [ 20350107 ],
+            "comment": "lead-in segment is too short, but generally flat",
             "surfaces": {
                 "wood": 0.05,
                 "dirt": 0.03
@@ -307,6 +299,8 @@
         },
         "eastern_eight": {
             "lap": [ 22914116 ],
+            "lead_in": [ 20350107 ],
+            "comment": "lead-in segment is too short, but generally flat",
             "surfaces": {
                 "wood": 0.02
             }
@@ -320,6 +314,8 @@
         },
         "triple_flat_loops": {
             "lap": [ 20453276 ],
+            "lead_in": [ 20350107 ],
+            "comment": "lead-in segment is too short, but generally flat",
             "surfaces": {
                 "wood": 0.05,
                 "cobbles": 0.01,
@@ -465,7 +461,7 @@
         },
         "railways_and_rooftops": {
             "lap": [ 30407802 ],
-            "lead_in": [ "???" ],
+            "comment": "no segment for lead-in",
             "surfaces": {
                 "brick": 0.91,
                 "wood": 0.02
@@ -473,7 +469,7 @@
         },
         "rooftop_rendevous": {
             "lap": [ 30407898 ],
-            "lead_in": [ "???" ],
+            "comment": "no segment for lead-in",
             "surfaces": {
                 "brick": 0.85,
                 "wood": 0.03
@@ -495,7 +491,7 @@
         },
         "spirit_forest": {
             "lap": [ 28432455 ],
-            "lead_in": [ "???" ],
+            "comment": "no segment for lead-in",
             "surfaces": {
                 "wood": 0.12,
                 "dirt": 0.67
@@ -576,6 +572,7 @@
         },
         "cobbled_climbs": {
             "lap": [ 11308213 ],
+            "lead_in": [ 27139617 ],
             "surfaces": {
                 "cobbles": 0.06
             }
@@ -589,7 +586,7 @@
         },
         "fan_flats": {
             "lap": [ 19852166 ],
-            "lead_in": [ 19852135 ],
+            "lead_in": [ 23382688 ],
             "surfaces": {
                 "cobbles": 0.45
             }
@@ -599,8 +596,6 @@
         "classique": {
             "lap": [ 12749761 ],
             "lead_in": [ 12787386 ],
-            "surfaces": {
-            }
         },
         "greater_london_8": {
             "lap": [ 15158866 ],
@@ -612,8 +607,6 @@
         "greater_london_flat": {
             "lap": [ 15389301 ],
             "lead_in": [ 15389276 ],
-            "surfaces": {
-            }
         },
         "greater_london_loop": {
             "lap": [ 15158576 ],
@@ -700,7 +693,8 @@
             }
         },
         "la_reine": {
-            "lap": [ 33465483 ]
+            "lap": [ 33465483 ],
+            "comment": "no segments for descent to make lap"
         },
         "petit_boucle": {
             "lap": [ 24676054 ],
@@ -731,7 +725,7 @@
         },
         "ventop": {
             "lap": [ 24682608 ],
-            "lead_in": []
+            "comment": "no segments for descent to make lap"
         }
     },
     "scotland": {},
@@ -790,7 +784,8 @@
         },
         "highline": {
             "lap": [ 19173163 ],
-            "lead_in": [ "???" ]
+            "lead_in": [ 19141090 ],
+            "comment": "no segment for (mostly) flat section of lead-in"
         }
     },
     "innsbruck": {

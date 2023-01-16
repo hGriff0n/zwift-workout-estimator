@@ -115,6 +115,8 @@ class ZwiftController(object):
 # TODO(me): Figure out domain error, start/end is really weird (legacy)
 # TODO(me): Consider changing intervals into a "callable" state instead of translating ramps to a series of smaller intervals
 ## main
+# TODO(me): Should laps report completion in total time or "lap" time
+# TODO(me): Incorporate lap customization
 if __name__ == '__main__':
     p = argparse.ArgumentParser(prog='ZwiftEstimate')
     p.add_argument('route')
