@@ -34,7 +34,7 @@ class CyclingObject(object):
 class Bike(CyclingObject):
 
     def __init__(self, aero: int, weight: int):
-        super().__init__(8 - weight, .0874 - .008*aero)
+        super().__init__(9 - weight, .0874 - .008*aero)
 
     @property
     def frontal_area(self):
@@ -121,7 +121,7 @@ class Rider(CyclingObject):
         self._add_accessory(self._wheels)
 
     def __repr__(self):
-        return f'{self._mass}kg ftp={self.ftp}w'
+        return f'{self._mass:.2f}kg ftp={self.ftp}w'
 
     @property
     def frontal_area(self):
@@ -137,7 +137,7 @@ class Rider(CyclingObject):
 
 
 BIKES = {
-    'emonda': Bike(4, 0.0714)
+    'emonda': Bike(weight=4, aero=2)
 }
 
 WHEELS = {
