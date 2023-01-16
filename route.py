@@ -1,7 +1,9 @@
 
 import copy
+from functools import reduce
 import json
 import math
+import operator
 
 
 class Point(object):
@@ -20,105 +22,86 @@ class Segment(object):
     """A piece of a zwift route with a constant gradient
     """
 
-    def __init__(self, start, end, traveled):
+    def __init__(self, start, end):
         self.start = start
         self.end = end
-        self._traveled = traveled
         self.length = end.distance - start.distance
         self.delta = end.elevation - start.elevation
         self.gradient = 0 if self.delta == 0 else self.delta / math.sqrt(self.length*self.length - self.delta*self.delta)
 
     @property
-    def traveled(self):
-        return self._traveled + self.end.distance
+    def elevation_gain(self):
+        return max(0, self.delta)
 
     def __repr__(self):
         return f'{self.length:.2f}m at {self.gradient * 100:.2f}%'
 
 
-class RouteIterator(object):
-    """Steps along segments on a zwift route.
+class Lap(object):
+    """Collection of strava segments that are ridden in order.
 
-    Accommodates route lead_ins before repeating laps until iteration stops.
-    Will iterate forever if no break is inserted into the loop.
+    Provides easy access to total length and elevation gain.
     """
-    def __init__(self, lead_in, lap):
-        self._pos = lead_in
-        self._lap = lap
-        if self._pos is None:
-            self._pos = copy.copy(self._lap)
 
-        self._num_laps = 2
-        self._base_distance = 0
-        self._prev = next(self._pos)
-        _ = next(self._lap)
+    def __init__(self, client, ids):
+        self._segments = self._load_lap(client, ids)
+        self._len = sum(s.length for s in self._segments)
+        self._elev = sum(s.elevation_gain for s in self._segments)
 
-    def __next__(self):
-        nxt = next(self._pos, None)
-        if nxt is None:
-            self._base_distance += self._prev.distance
-            self._prev.distance = 0
-            self._pos = copy.copy(self._lap)
-            nxt = next(self._pos)
-        s = Segment(self._prev, nxt, self._base_distance)
-        self._prev = nxt
-        return s
+    def _load_lap(self, client, segments):
+        if not segments:
+            return []
+        return reduce(operator.concat, [self._grab_segment(client, sid) for sid in segments])
+
+    def _grab_segment(self, client, segment_id):
+        s = client.get_segment_streams(segment_id, types=['distance', 'altitude'])
+        it = zip(s['distance'].data, s['altitude'].data)
+        start = Point(*next(it))
+        prev = None
+        segments = []
+        for d, e in it:
+            p = Point(d, e)
+            if e == start.elevation:
+                prev = p
+                continue
+            if prev is not None:
+                segments.append(Segment(copy.copy(start), copy.copy(prev)))
+                start = prev
+                prev = None
+            segments.append(Segment(copy.copy(start), copy.copy(p)))
+            start = p
+
+        return segments
+
+    @property
+    def length(self):
+        return self._len / 1000
+
+    @property
+    def elevation_gain(self):
+        return self._elev
+
+    def __iter__(self):
+        return iter(self._segments)
 
 
 # TODO(me): Add ability to customize laps as some routes just end.
 # Will likely need to be able to reverse/offset/trim/insert segments to fuly work
 class Route(object):
-    """Provides an iterator to step along segments on a zwift route.
+    """Combination of a lap with an optional lead in.
 
-    Accommodates route lead_ins before repeating laps until iteration stops.
+    Provides additional information about aggregate surface type and reports lap completions
+    while also providing an iterator to repeatedly loop over the main lap (after a lead in).
     """
 
-    # TODO(me): Zwift loader doesn't have a "known" type at this point
-    def _load_lap(self, segments):
-        segment_id = segments['lap'][0]
-        lap = self._grab_segment_points(segment_id)
-        self._lap_distance = lap[-1].distance
-        self._lap = iter(lap)
-        self._leadin = None
-        self._lead_in_distance = 0
-
-    def _load_leadin(self, segments):
-        leadin = []
-        if segments.get('lead_in', []):
-            leadin = self._grab_segment_points(segments['lead_in'][0])
-
-        if leadin:
-            self._lead_in_distance += leadin[-1].distance
-            self._leadin = iter(leadin)
-
-    def __init__(self, name, segments, strava_client):
+    def __init__(self, name, details, client):
         self._name = name
-        self._client = strava_client
-        self._surfaces = segments.get('surfaces', {})
-        self._load_lap(segments)
-        self._load_leadin(segments)
+        self._surfaces = details.get('surfaces', {})
+        self._lap = Lap(client, details['lap'])
+        self._leadin = Lap(client, details.get('lead_in', []))
+        self._leadin_active = False
 
-    def _grab_segment_points(self, segment_id):
-        s = self._client.get_segment_streams(segment_id, types=['distance', 'altitude'])
-        it = zip(s['distance'].data, s['altitude'].data)
-        points = [Point(*next(it))]
-        prev = None
-        for d, e in it:
-            p = Point(d, e)
-            if p.elevation == points[-1].elevation:
-                prev = p
-            else:
-                if prev is not None:
-                    points.append(prev)
-                    prev = None
-                points.append(p)
-        if prev is not None:
-            points.append(prev)
-        return points
-
-    @property
-    def length(self):
-        return self._lap_distance + self._lead_in_distance
+        self.attach_lap_reporter()
 
     @property
     def name(self):
@@ -128,8 +111,31 @@ class Route(object):
     def surfaces(self):
         return self._surfaces
 
+    @property
+    def active_lap(self):
+        return self._leadin if self._leadin_active else self._lap
+
+    def has_lead_in(self):
+        return self._leadin.length > 0
+
+    # Define iterator which traverses the leadin before repeatedly traversing the lap
     def __iter__(self):
-        return RouteIterator(copy.copy(self._leadin), copy.copy(self._lap))
+        self._leadin_active = True
+        for s in self._leadin:
+            yield s
+        self._report_lap()
+        self._leadin_active = False
+
+        while True:
+            for s in self._lap:
+                yield s
+            self._report_lap()
+
+    def attach_lap_reporter(self, lap_reporter=None):
+        if lap_reporter is None:
+            lap_reporter = lambda: None
+        self._report_lap = lap_reporter
+
 
 with open("routes.json") as fp:
     ROUTE_DIRECTORY = json.load(fp)

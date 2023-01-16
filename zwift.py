@@ -17,80 +17,84 @@ class ZwiftRide(object):
     # iterator class for simulating a specific ride
     DT = 0.1
 
-    def __init__(self, rider, workout, zroute):
-        self._rider = rider.reset()
-        self._route_length = zroute.length
-        self._surfaces = zroute.surfaces
+    def __init__(self, rider, workout, route):
+        self._rider = rider
+        self._route = route
+        self._workout = workout
 
-        # Init workout and route iterators
-        self._workout_iter = iter(workout)
-        self._interval = next(self._workout_iter)
+        self._laps = []
+        self._route.attach_lap_reporter(lap_reporter=self._report_lap)
         self._workout_time = sum(i.duration for i in workout)
-        print(f'==>Grabbed initial workout interval: {self._interval}')
-
-        self._route_iter = iter(zroute)
-        self._segment = next(self._route_iter)
-        print(f'==>Grabbed initial route segment: {self._segment}')
 
         # Init physics variables
         self._timer = 0
-        self._interval_start = 0
         self._distance = 0
-        self._elevation = 0
-        self._laps = []
+        self._climbed = 0
 
-    # TODO(me): Could there be a possible problem here if a rider completely covers one interval in between ticks?
-    # While this does get the correct interval/segment, it doesn't apply the intermediate physics
-    # I am seeing this, especially at the end, might be resolvable with segment compaction though
-    def _get_current_interval(self):
-        while self._timer >= self._interval_start + self._interval.duration:
-            self._interval_start += self._interval.duration
-            self._interval = next(self._workout_iter)
-            print(f'==>Grabbed next workout interval: {self._interval}')
-        return self._interval
+    @property
+    def distance(self):
+        return self._distance / 1000
 
-    def _get_current_segment(self):
-        count = 0
-        while self._distance >= self._segment.traveled:
-            self._elevation += max(self._segment.delta, 0)
-            count += 1
-            if count > 20:
-                self._report_laps()
-                raise Exception("Runaway due to known bug caused by completing 2 laps. Route distance calculation accidentally deletes one lap from distance causing infinite loop. TODO(me): Fix")
-            self._segment = next(self._route_iter)
-            print(f'==>Grabbed next route segment: {self._segment}')
-        return self._segment
+    def _iterate_workout(self):
+        finished = 0
+        for interval in self._workout:
+            print(f'==>Grabbed next interval segment: {interval}')
+            # Keep returning "this" interval until we have "traveled" the full duration
+            while self._timer - finished <= interval.duration:
+                yield interval
+            finished += interval.duration
 
-    def _report_laps(self):
-        for i, lap in enumerate(self._laps):
-            print(f'Workout would complete lap {i + 1} in {lap}')
+    def _iterate_route(self):
+        traveled = 0
+        for segment in self._route:
+            print(f'==>Grabbed next route segment: {segment}')
+            # Keep returning "this" segment until we have traveled the full length
+            while traveled + segment.length > self._distance:
+                yield segment
+            traveled += segment.length
+            self._climbed += segment.elevation_gain
 
-    def __next__(self):
-        if self._timer >= self._workout_time:
-            self._report_laps()
-            current_lap_progress = self._distance - (len(self._laps) * self._route_length)
-            pct_rte = current_lap_progress / self._route_length
-            print(f"Workout would only finish {pct_rte:%} of the current lap ({current_lap_progress/1000:.2f}km out of {self._route_length/1000:.2f}km, {self._elevation}m gained)")
-            raise StopIteration("")
+    def _report_lap(self):
+        is_lead_in = (not self._laps) and self._route.has_lead_in()
+        rem = self._workout_time - self._timer
+        self._laps.append((split_time(self._timer), rem, is_lead_in))
 
-        if self._distance >= self._route_length * (len(self._laps) + 1):
-            rem = self._workout_time - self._timer
-            t = split_time(self._timer)
-            self._laps.append(f'{t} (with {rem:.2f}s to-go in the workout)')
+    def _report_progress(self, distance):
+        lap = self._route.active_lap
+        pct_complete = distance / lap.length
+        print(f'Workout completed with current lap only {pct_complete:.2%} complete ({distance:.2f}km out of {lap.length:.2f}km)')
 
-        segment = self._get_current_segment()
+    def _report_completions(self):
+        distance = 0
+        lap_number = iter(range(len(self._laps)))
+        for t, rem, is_lead_in in self._laps:
+            name = 'Lead-In' if is_lead_in else f'Lap {next(lap_number)}'
+            print(f'{name} completed in {t} (with {rem:.2f}s left in workout)')
+            distance += self._route._leadin.length if is_lead_in else self._route._lap.length
+        return distance
 
-        # TODO(me): Would this make more sense to apply before grabbing next segment?
-        v = self._rider.velocity
-        self._distance += v * self.DT
+    def _report_totals(self):
+        print(f'In total, workout would travel {self.distance:.2f}km and climb {self._climbed:.2f}m')
 
-        interval = self._get_current_interval()
-        watts = interval.target(self._rider.ftp)
+    def __iter__(self):
+        segment_generator = self._iterate_route()
+        for interval in self._iterate_workout():
+            segment = next(segment_generator)
 
-        self._rider.apply_watts(watts, segment.gradient, self.DT, self._surfaces)
+            # Technically inaccurate, but close enough for the simulation
+            old_v = self._rider.velocity
+            self._distance += old_v * self.DT
 
-        self._timer += self.DT
-        return (v, self._distance, self._elevation, self._timer)
+            watts = interval.target(self._rider.ftp)
+            self._rider.apply_watts(watts, segment.gradient, self.DT, self._route.surfaces)
+
+            yield (old_v, self.distance, self._climbed, self._timer)
+            self._timer += self.DT
+
+        completed_lap_distance = self._report_completions()
+        self._report_progress(self.distance - completed_lap_distance)
+        self._report_totals()
+
 
 class ZwiftController(object):
     # general controller class for managing workout/route selection and loading
@@ -104,15 +108,9 @@ class ZwiftController(object):
     def set_route(self, route_name):
         self._route = route.load_route(route_name, self._client)
 
-    def __iter__(self):
+    def start_ride(self):
         return ZwiftRide(self._rider, self._workout, self._route)
 
-
-# TODO(me): convert intervals to have a dt interface instead of producing list of dicts
-# TODO(me): ZwiftRide can still be simplified with changes to route iterator
-# TODO(me): Check time duration, workouts seem to be lasting much longer than workouts
-# TODO(me): Starting at the 2nd lap, distance calculation seems to include a segment of -1Lap length
-# causing an infinite loop
 # TODO(me): Validate this matches the previous version
 # TODO(me): Figure out domain error, start/end is really weird (legacy)
 # TODO(me): Consider changing intervals into a "callable" state instead of translating ramps to a series of smaller intervals
@@ -140,6 +138,6 @@ if __name__ == '__main__':
     wl = workouts.WorkoutLoader(me)
     zwift.set_workout(wl.load_workout(name=args.workout))
 
-    for v, d, e, t in zwift:
+    for v, d, e, t in zwift.start_ride():
         ts = split_time(t)
-        print(f't={ts} r={me} v={v*3.6:.2f}kph d={d/1000:.2f}km e={e}m')
+        print(f't={ts} r={me} v={v*3.6:.2f}kph d={d:.2f}km e={e:.2f}m')
