@@ -15,7 +15,7 @@ def init_client(client_id, client_secret, refresh_token):
     return client
 
 def load_from_config(filepath):
-    with open('strava_secrets.json') as f:
+    with open(filepath) as f:
         strava_secrets = json.load(f)
         STRAVA_CLIENT_ID = int(strava_secrets['client_id'])
         STRAVA_CLIENT_SECRET = strava_secrets['client_secret']

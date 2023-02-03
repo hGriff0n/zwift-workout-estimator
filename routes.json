@@ -595,7 +595,7 @@
     "london": {
         "classique": {
             "lap": [ 12749761 ],
-            "lead_in": [ 12787386 ],
+            "lead_in": [ 12787386 ]
         },
         "greater_london_8": {
             "lap": [ 15158866 ],
@@ -606,7 +606,7 @@
         },
         "greater_london_flat": {
             "lap": [ 15389301 ],
-            "lead_in": [ 15389276 ],
+            "lead_in": [ 15389276 ]
         },
         "greater_london_loop": {
             "lap": [ 15158576 ],
@@ -693,8 +693,8 @@
             }
         },
         "la_reine": {
-            "lap": [ 33465483 ],
-            "comment": "no segments for descent to make lap"
+            "lap": [ 33465483, 24682619 ],
+            "comment": "descent segment is from ventop, not chalet reynard. no segment for climb to top"
         },
         "petit_boucle": {
             "lap": [ 24676054 ],
@@ -724,11 +724,10 @@
             }
         },
         "ventop": {
-            "lap": [ 24682608 ],
+            "lap": [ 24682608, 24682619 ],
             "comment": "no segments for descent to make lap"
         }
     },
-    "scotland": {},
     "yorkshire": {
         "worlds": {
             "lap": [ 21738724 ]
@@ -817,6 +816,45 @@
         "lutscher_ccw": {
             "lap": [ 18408872 ],
             "lead_in": [ 18407469 ]
+        }
+    },
+    "scotland": {
+        "city_and_the_sgurr": {
+            "lead_in": [],
+            "lap": [33635722]
+        },
+        "glasgow_crit": {
+            "lap": [33620076]
+        },
+        "loch_loop": {
+            "lap": [33636526]
+        },
+        "rolling_highlands": {
+            "lead_in": [],
+            "lap": [33620176]
+        },
+        "muckle_yin": {
+            "lap": [33636050]
+        }
+    },
+    "rouvy": {
+        "furkapass": {
+            "gpx": "C:\\Users\\ghoop\\Downloads\\furka_pass_rouvy.gpx"
+        },
+        "pordoi": {
+            "gpx": "C:\\Users\\ghoop\\Downloads\\passo_pordoi_rouvy.gpx"
+        },
+        "alpe_dhuez": {
+            "gpx": "C:\\Users\\ghoop\\Downloads\\alpe_dhueze_rouvy.gpx"
+        },
+        "la_doyenne": {
+            "gpx": "C:\\Users\\ghoop\\Downloads\\la_doyenne_rouvy.gpx"
+        },
+        "amstel": {
+            "gpx": "C:\\Users\\ghoop\\Downloads\\amstel_rouvy.gpx"
+        },
+        "spa_spirimont": {
+            "gpx": "C:\\Users\\ghoop\\Downloads\\spa_spirimont_rouvy.gpx"
         }
     }
 }

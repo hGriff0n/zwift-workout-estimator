@@ -1,6 +1,8 @@
 
 import copy
 from functools import reduce
+import gpxpy
+from gpxpy import geo as gpxgeo
 import json
 import math
 import operator
@@ -27,7 +29,12 @@ class Segment(object):
         self.end = end
         self.length = end.distance - start.distance
         self.delta = end.elevation - start.elevation
-        self.gradient = 0 if self.delta == 0 else self.delta / math.sqrt(self.length*self.length - self.delta*self.delta)
+
+        try:
+            self.gradient = 0 if self.delta == 0 else self.delta / math.sqrt(self.length*self.length - self.delta*self.delta)
+        except Exception:
+            self.gradient = 0
+            print(f'start: {start} end: {end} delta: {self.delta:.2f} len: {self.length: .2f}')
 
     @property
     def elevation_gain(self):
@@ -84,6 +91,41 @@ class Lap(object):
     def __iter__(self):
         return iter(self._segments)
 
+class GpxLap(Lap):
+    """Customization to enable building a "lap" from a gpx file, in case strava segments are unavailable.
+
+    Mostly useful for integrating workout estimation with rouvy (though the physics are different)
+    """
+
+    def __init__(self, client, ids):
+        super().__init__(client, ids)
+
+    def _load_lap(self, _client, segments):
+        with open(segments['gpx'], 'r') as f:
+            self._gpx = gpxpy.parse(f)
+
+        route = self._gpx.tracks[0].segments[0]
+        points = [
+            Point(gpxgeo.length_3d(route.points[:i]), point.elevation) for point, i in route.walk()
+        ]
+        start = points[0]
+        prev = None
+        segments = []
+        for p in points[1:]:
+            if p.elevation == start.elevation:
+                prev = p
+                continue
+            if prev is not None:
+                s = Segment(copy.copy(start), copy.copy(prev))
+                if s.length > 0:
+                    segments.append(s)
+                start = prev
+                prev = None
+            s = Segment(copy.copy(start), copy.copy(p))
+            if s.length > 0:
+                segments.append(s)
+            start = p
+        return segments
 
 # TODO(me): Add ability to customize laps as some routes just end.
 # Will likely need to be able to reverse/offset/trim/insert segments to fuly work
@@ -92,14 +134,20 @@ class Route(object):
 
     Provides additional information about aggregate surface type and reports lap completions
     while also providing an iterator to repeatedly loop over the main lap (after a lead in).
+
+    Surface information taken from https://zwiftmap.com/watopia
     """
 
     def __init__(self, name, details, client):
         self._name = name
         self._surfaces = details.get('surfaces', {})
-        self._lap = Lap(client, details['lap'])
         self._leadin = Lap(client, details.get('lead_in', []))
-        self._leadin_active = False
+        self._leadin_active = ('lead_in' in details)
+
+        if 'gpx' in details:
+            self._lap = GpxLap(client, details)
+        else:
+            self._lap = Lap(client, details['lap'])
 
         self.attach_lap_reporter()
 
@@ -120,9 +168,38 @@ class Route(object):
 
     # Define iterator which traverses the leadin before repeatedly traversing the lap
     def __iter__(self):
+        while True:
+            for s in self.active_lap:
+                yield s
+            self._leadin_active = False
+            self._report_lap()
+
+    def attach_lap_reporter(self, lap_reporter=None):
+        if lap_reporter is None:
+            lap_reporter = lambda: None
+        self._report_lap = lap_reporter
+
+class JungleLeadIn(Route):
+    def __init__(self, name, details, client):
+        super().__init__(name, details, client)
+        self._alpe_surface = self._surfaces.copy()
+        self._alpe_surface.pop('dirt', None)
+        self._surfaces = { 'dirt': 1 }
+
+    # Define iterator which traverses the leadin before repeatedly traversing the lap
+    def __iter__(self):
         self._leadin_active = True
-        for s in self._leadin:
+        it = iter(self._leadin)
+        covered = 0
+        while covered <= 5000:
+            s = next(it)
+            covered += s.length
             yield s
+
+        self._surfaces = self._alpe_surface
+        for s in it:
+            yield s
+
         self._report_lap()
         self._leadin_active = False
 
@@ -131,15 +208,12 @@ class Route(object):
                 yield s
             self._report_lap()
 
-    def attach_lap_reporter(self, lap_reporter=None):
-        if lap_reporter is None:
-            lap_reporter = lambda: None
-        self._report_lap = lap_reporter
-
 
 with open("routes.json") as fp:
     ROUTE_DIRECTORY = json.load(fp)
 
 def load_route(name, strava_client):
     world, route_ = name.split('.')
+    if route_ == 'road_to_sky':
+        return JungleLeadIn(name, ROUTE_DIRECTORY[world][route_], strava_client)
     return Route(name, ROUTE_DIRECTORY[world][route_], strava_client)

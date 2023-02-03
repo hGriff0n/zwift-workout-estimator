@@ -137,12 +137,14 @@ class Rider(CyclingObject):
 
 
 BIKES = {
-    'emonda': Bike(weight=4, aero=2)
+    'emonda': Bike(weight=4, aero=2),
+    'canyon': Bike(weight=4, aero=2),  # climbing route
+    'nuclear': Bike(weight=3, aero=3), # flat route
 }
 
 WHEELS = {
-    'meilensteins': RoadWheels(weight=4, aero=3),
-    'dt_swiss': RoadWheels(weight=3, aero=4),
+    'meilensteins': RoadWheels(weight=4, aero=3),   # climbing route
+    'dt_swiss': RoadWheels(weight=3, aero=4),       # flat route (best overall)
     'cadex': RoadWheels(weight=3, aero=4),
     'enve': RoadWheels(weight=3, aero=4),
 }

@@ -35,6 +35,8 @@ class ZwiftRide(object):
     def distance(self):
         return self._distance / 1000
 
+    # For the "dt-interval" approach to work, this needs to have an internal
+    # `interval_timer`
     def _iterate_workout(self):
         finished = 0
         for interval in self._workout:
@@ -111,12 +113,12 @@ class ZwiftController(object):
     def start_ride(self):
         return ZwiftRide(self._rider, self._workout, self._route)
 
-# TODO(me): Validate this matches the previous version
-# TODO(me): Figure out domain error, start/end is really weird (legacy)
 # TODO(me): Consider changing intervals into a "callable" state instead of translating ramps to a series of smaller intervals
 ## main
 # TODO(me): Should laps report completion in total time or "lap" time
 # TODO(me): Incorporate lap customization
+# TODO(me): Reporting slightly wrong (not reporting lead-in, negative completion of ongoing lap)
+# TODO(me): Looks like workouts are going slightly longer than they actually should be
 if __name__ == '__main__':
     p = argparse.ArgumentParser(prog='ZwiftEstimate')
     p.add_argument('route')
