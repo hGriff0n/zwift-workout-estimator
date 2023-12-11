@@ -91,18 +91,14 @@ class FreeRideInterval(Interval):
 class SteadyInterval(Interval):
     MATCHER = re.compile(r'(((?P<timem>\d+)min *)?((?P<times>\d+)sec *)?@ )((?P<cadence>\d+)rpm, )?((?P<pct_ftp>\d+)% FTP)')
 
-    def __init__(self, raw_str, round_to_5=None, **kwargs):
+    def __init__(self, raw_str, **kwargs):
         super().__init__(raw_str, SteadyInterval.MATCHER, **kwargs)
-        self._round_to_5 = round_to_5
 
     def __repr__(self):
         return f'Steady Interval: {self.duration}s at {self.pct_ftp:.0%} FTP'
 
     def target(self, ftp):
-        w = self.pct_ftp * ftp
-        if self._round_to_5:
-            w = round(math.ceil(w) / 5) * 5
-        return w
+        return round(self.pct_ftp * ftp)
 
 
 class RampInterval(Interval):

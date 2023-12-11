@@ -136,12 +136,23 @@ class Rider(CyclingObject):
         return self._ftp
 
 
+# Trawled from game data files
+# https://docs.google.com/spreadsheets/d/1O2NN5RHH3Q2j4uNjKJTkxqse-Ax2DOf7EcywS5O5-VE/edit#gid=0
+# emonda: cdA=0 weight=3.9kg
+# canyon: cdA=0 weight=3.96kg
+# nuclear: cdA=-.0047 weight=4.48kg
 BIKES = {
     'emonda': Bike(weight=4, aero=2),
     'canyon': Bike(weight=4, aero=2),  # climbing route
     'nuclear': Bike(weight=3, aero=3), # flat route
 }
 
+# Trawled from game data files
+# https://docs.google.com/spreadsheets/d/1O2NN5RHH3Q2j4uNjKJTkxqse-Ax2DOf7EcywS5O5-VE/edit#gid=0
+# meilensteins: cdA=-.004 weight=1.83kg
+# dt_swiss: cdA=-.0105 weight=2.13kg
+# cadex: cdA=-.005 weight=2.11kg
+# enve: cdA=-.008 weight=2.08kg
 WHEELS = {
     'meilensteins': RoadWheels(weight=4, aero=3),   # climbing route
     'dt_swiss': RoadWheels(weight=3, aero=4),       # flat route (best overall)

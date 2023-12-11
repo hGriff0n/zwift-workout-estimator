@@ -1,5 +1,79 @@
 {
+    "comment": [
+        "surfaces taken from zwiftmap.com",
+        "surfaces assumes road for remaining sum (out of 1)"
+    ],
     "watopia": {
+        "accelerate_to_elevate": {
+            "lead_in": [27215934],
+            "lap": [35705419],
+            "comment": "lead-in has slight overlap, but mostly flat",
+            "surfaces": {
+                "dirt": 0.04
+            },
+        },
+        "the_big_ring": {
+            "lead_in": [ 20350107 ],
+            "comment": "lead-in segment is too short, but generally flat",
+            "lap": [ 35696945 ],
+            "surfaces": {
+                "wood": 0.02,
+                "dirt": 0.12
+            },
+        },
+        "big_flat_8": {
+            "lap": [ 26974627 ],
+            "lead_in": [ 20350107 ],
+            "comment": "lead-in segment is too short, but generally flat. Rebel route",
+            "surfaces": {}
+        },
+        "canopies_and_coastlines": {
+            "lead_in": [ 21343961, 35696990 ],
+            "lap": [],
+            "comment": "ends at jungle",
+            "surfaces": {},
+        },
+        "coast_crusher": {
+            "lead_in": [27215934, 35705430],
+            "lap": [ 35697049 ],
+            "comment": "lead-in has slight overlap, but mostly flat. surfaces doesn't include gravel lead-in",
+            "surfaces": {},
+        },
+        "going_coastal": {
+            "lead_in": [ 20350107, 35697589 ],
+            "comment": "lead-in segment is too short, but generally flat",
+            "lap": [],
+            "surfaces": {},
+        },
+        "shorelines_and_summits": {
+            "lead_in": [ 27215934 ],
+            "lap": [ 35697595 ],
+            "surfaces": {
+                "cobbles": 0.01,
+                "dirt": 0.1,
+                "snow": 0.06
+            },
+        },
+        "spiral_into_volcano": {
+            "lead_in": [ 0522725 ],
+            "lap": [],
+            "surfaces": {},
+            "comment": "rebel route, surface not known yet",
+        },
+        "sugar_cookie": {
+            "lead_in": [27215934],
+            "lap": [35705425],
+            "surfaces": {
+                "wood": 0.01,
+                "dirt": 0.15
+            },
+        },
+        "temple_trek": {
+            "lead_in": [27215934, 35705430],
+            "lap": [ 35697049 ],
+            "comment": "copy of coast crusher since the continuance is that lap",
+            "surfaces": {},
+        },
         "beach_island_loop": {
             "lap": [ 26741693 ],
             "surfaces": {
@@ -129,6 +203,15 @@
                 "dirt": 0.01
             }
         },
+        "mountain_route_reverse": {
+            "lap": [ 12118555 ],
+            "surfaces": {
+                "wood": 0.03,
+                "cobbles": 0.02,
+                "snow": 0.09,
+                "dirt": 0.01
+            }
+        },
         "muir_and_mountain": {
             "lap": [ 22368918 ],
             "comment": "segment 21563640 is too long for lead-in",
@@ -176,6 +259,9 @@
             "surfaces": {
                 "dirt": 0.19
             }
+        },
+        "alpe_du_zwift": {
+            "lap": [ 17267489 ]
         },
         "sand_and_sequoias": {
             "lap": [ 21911197 ],
@@ -331,6 +417,12 @@
                 "sand": 0.16,
                 "wood": 0.25
             }
+        },
+        "castle_crit": {
+            "lap": [ 30326079 ],
+            "lead_in": [],
+            "surfaces": {},
+            "comment": "rebel route, surface not known yet"
         },
         "castle_to_castle": {
             "lap": [ 30629803 ],
@@ -692,6 +784,11 @@
                 "cobbles": 0.05
             }
         },
+        "petit_douleur": {
+            "lap": [ 24984611 ],
+            "lead_in": [],
+            "comment": "no lead in segment, lap starts at top of petit kom"
+        },
         "la_reine": {
             "lap": [ 33465483, 24682619 ],
             "comment": "descent segment is from ventop, not chalet reynard. no segment for climb to top"
@@ -845,7 +942,7 @@
             "gpx": "C:\\Users\\ghoop\\Downloads\\passo_pordoi_rouvy.gpx"
         },
         "alpe_dhuez": {
-            "gpx": "C:\\Users\\ghoop\\Downloads\\alpe_dhueze_rouvy.gpx"
+            "gpx": "C:\\Users\\ghoop\\Downloads\\alpe_dhuez_rouvy.gpx"
         },
         "la_doyenne": {
             "gpx": "C:\\Users\\ghoop\\Downloads\\la_doyenne_rouvy.gpx"

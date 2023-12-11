@@ -5,9 +5,10 @@
             "sand": 0.004,
             "brick": 0.0055,
             "wood": 0.0065,
-            "cobbles": 0.0065,
+            "cobbles": 0.0055,
             "snow": 0.0075,
-            "dirt": 0.025
+            "dirt": 0.016,
+            "gravel": 0.012
         },
         "mtb": {
             "road": 0.01,
@@ -16,7 +17,8 @@
             "wood": 0.01,
             "cobbles": 0.01,
             "snow": 0.014,
-            "dirt": 0.014,
+            "dirt": 0.01,
+            "gravel": 0.009,
             "grass": 0.042
         },
         "gravel": {
@@ -25,8 +27,9 @@
             "brick": 0.008,
             "wood": 0.008,
             "cobbles": 0.008,
-            "snow": 0.008,
-            "dirt": 0.016
+            "snow": 0.018,
+            "dirt": 0.012,
+            "gravel": 0.009
         }
     },
     "worlds": {
